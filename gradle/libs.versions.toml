@@ -15,6 +15,8 @@ junit = "4.13.2"
 kotlin = "2.3.0"
 kotlinx-coroutines = "1.10.2"
 material3 = "1.10.0-alpha05"
+remoteCompose = "1.0.0-alpha04"
+
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -35,6 +37,21 @@ compose-ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "composeMul
 compose-components-resources = { module = "org.jetbrains.compose.components:components-resources", version.ref = "composeMultiplatform" }
 compose-uiToolingPreview = { module = "org.jetbrains.compose.ui:ui-tooling-preview", version.ref = "composeMultiplatform" }
 kotlinx-coroutinesSwing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
+
+#compose-remote
+androidx-compose-remote-core = { group = "androidx.compose.remote", name = "remote-core", version.ref = "remoteCompose" }
+androidx-compose-remote-creation = { group = "androidx.compose.remote", name = "remote-creation", version.ref = "remoteCompose" }
+androidx-compose-remote-creation-core = { group = "androidx.compose.remote", name = "remote-creation-core", version.ref = "remoteCompose" }
+androidx-compose-remote-creation-android = { group = "androidx.compose.remote", name = "remote-creation-android", version.ref = "remoteCompose" }
+androidx-compose-remote-creation-jvm = { group = "androidx.compose.remote", name = "remote-creation-jvm", version.ref = "remoteCompose" }
+androidx-compose-remote-creation-compose = { group = "androidx.compose.remote", name = "remote-creation-compose", version.ref = "remoteCompose" }
+
+androidx-compose-remote-player-core = { group = "androidx.compose.remote", name = "remote-player-core", version.ref = "remoteCompose" }
+androidx-compose-remote-player-view = { group = "androidx.compose.remote", name = "remote-player-view", version.ref = "remoteCompose" }
+androidx-compose-remote-player-compose = { group = "androidx.compose.remote", name = "remote-player-compose", version.ref = "remoteCompose" }
+
+androidx-compose-remote-tooling-preview = { group = "androidx.compose.remote", name = "remote-tooling-preview", version.ref = "remoteCompose" }
+
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
