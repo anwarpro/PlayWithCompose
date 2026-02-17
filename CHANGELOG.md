@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/anwarpro/PlayWithCompose/compare/v1.0.0...v1.0.1) (2026-02-17)
+
+
+### Bug Fixes
+
+* merge deploy workflow into release-please to ensure trigger ([027395a](https://github.com/anwarpro/PlayWithCompose/commit/027395a2de79817f63af540c94e00429defa5f9b))
+
 ## 1.0.0 (2026-02-17)
 
 
