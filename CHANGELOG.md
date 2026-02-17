@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.3](https://github.com/anwarpro/PlayWithCompose/compare/v1.0.2...v1.0.3) (2026-02-17)
+
+
+### Bug Fixes
+
+* expose release_created output in release-please job ([df71d8c](https://github.com/anwarpro/PlayWithCompose/commit/df71d8c744eeb97f0e91c555e211ef34ee27c674))
+* trigger next release to verify deploy ([fc499eb](https://github.com/anwarpro/PlayWithCompose/commit/fc499eb1b0fe72033376f81f6bae8778dc048dac))
+
 ## [1.0.2](https://github.com/anwarpro/PlayWithCompose/compare/v1.0.1...v1.0.2) (2026-02-17)
 
 
