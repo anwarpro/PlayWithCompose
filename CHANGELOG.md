@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.4](https://github.com/anwarpro/PlayWithCompose/compare/v1.0.3...v1.0.4) (2026-02-17)
+
+
+### Bug Fixes
+
+* upgrade java version to 17 for wasm build ([24b907b](https://github.com/anwarpro/PlayWithCompose/commit/24b907b767f3bf7e899cde9fcb7d46e626a20687))
+
 ## [1.0.3](https://github.com/anwarpro/PlayWithCompose/compare/v1.0.2...v1.0.3) (2026-02-17)
 
 
