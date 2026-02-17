@@ -16,7 +16,7 @@ kotlin {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
-    
+
     listOf(
         iosArm64(),
         iosSimulatorArm64()
@@ -26,20 +26,20 @@ kotlin {
             isStatic = true
         }
     }
-    
+
     jvm()
-    
+
     js {
         browser()
         binaries.executable()
     }
-    
+
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         browser()
         binaries.executable()
     }
-    
+
     sourceSets {
         androidMain.dependencies {
             implementation(libs.compose.uiToolingPreview)
@@ -54,6 +54,14 @@ kotlin {
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
+
+//            implementation(libs.androidx.compose.remote.core)
+//            implementation(libs.androidx.compose.remote.creation)
+//            implementation(libs.androidx.compose.remote.creation.core)
+//            implementation(libs.androidx.compose.remote.creation.compose)
+
+//            implementation(libs.androidx.compose.remote.player.core)
+//            implementation(libs.androidx.compose.remote.player.compose)
             implementation("org.jetbrains.compose.material:material-icons-extended:1.7.3")
         }
         commonTest.dependencies {

@@ -28,7 +28,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.helloanwar.playwithcompose.ui.editor.CodeEditor
 
 // --- Theme Colors ---
 val BrandCyan = Color(0xFF13C8EC)
@@ -93,9 +95,21 @@ fun ComposePlaygroundFull() {
                         .widthIn(max = 1200.dp),
                     horizontalArrangement = Arrangement.spacedBy(24.dp)
                 ) {
-                    FeatureCard(Icons.Outlined.Bolt, "Instant Compilation", "Powered by the latest Kotlin/Wasm compiler for lightning-fast feedback.")
-                    FeatureCard(Icons.Outlined.Devices, "Cross-Platform Preview", "Preview how your Composables look on mobile, desktop, and web.")
-                    FeatureCard(Icons.Outlined.Share, "Share Snippets", "Generate unique URLs for your playgrounds to share with the community.")
+                    FeatureCard(
+                        Icons.Outlined.Bolt,
+                        "Instant Compilation",
+                        "Powered by the latest Kotlin/Wasm compiler for lightning-fast feedback."
+                    )
+                    FeatureCard(
+                        Icons.Outlined.Devices,
+                        "Cross-Platform Preview",
+                        "Preview how your Composables look on mobile, desktop, and web."
+                    )
+                    FeatureCard(
+                        Icons.Outlined.Share,
+                        "Share Snippets",
+                        "Generate unique URLs for your playgrounds to share with the community."
+                    )
                 }
             }
 
@@ -137,17 +151,30 @@ fun Navbar() {
             .height(64.dp)
             .padding(horizontal = 40.dp)
             .drawBehind {
-                drawLine(Color.White.copy(0.05f), Offset(0f, size.height), Offset(size.width, size.height), 2f)
+                drawLine(
+                    Color.White.copy(0.05f),
+                    Offset(0f, size.height),
+                    Offset(size.width, size.height),
+                    2f
+                )
             },
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Box(Modifier.size(32.dp).background(BrandCyan, RoundedCornerShape(4.dp)), contentAlignment = Alignment.Center) {
+            Box(
+                Modifier.size(32.dp).background(BrandCyan, RoundedCornerShape(4.dp)),
+                contentAlignment = Alignment.Center
+            ) {
                 Text("C", fontWeight = FontWeight.Bold, color = BgDark)
             }
             Spacer(Modifier.width(12.dp))
-            Text("Compose Playground", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 18.sp)
+            Text(
+                "Compose Playground",
+                color = Color.White,
+                fontWeight = FontWeight.Bold,
+                fontSize = 18.sp
+            )
         }
         Row(horizontalArrangement = Arrangement.spacedBy(24.dp)) {
             Text("Docs", color = TextSlate, fontSize = 14.sp)
@@ -171,23 +198,73 @@ fun IdeContainer() {
     ) {
         Row(Modifier.fillMaxSize()) {
             // EDITOR (Left)
-            Column(Modifier.weight(0.65f)) {
-                Row(Modifier.fillMaxWidth().height(44.dp).background(EditorHeaderBg).padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically) {
-                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        listOf(Color(0xFFFF5F56), Color(0xFFFFBD2E), Color(0xFF27C93F)).forEach { Box(Modifier.size(10.dp).background(it, CircleShape)) }
+            Box(Modifier.weight(0.65f)) {
+                Column {
+                    Row(
+                        Modifier.fillMaxWidth().height(44.dp).background(EditorHeaderBg)
+                            .padding(horizontal = 16.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            listOf(
+                                Color(0xFFFF5F56),
+                                Color(0xFFFFBD2E),
+                                Color(0xFF27C93F)
+                            ).forEach { Box(Modifier.size(10.dp).background(it, CircleShape)) }
+                        }
+                        Text(
+                            "Main.kt",
+                            Modifier.weight(1f),
+                            textAlign = TextAlign.Center,
+                            color = TextSlate,
+                            fontSize = 12.sp,
+                            fontFamily = FontFamily.Monospace
+                        )
+                        Icon(
+                            Icons.Default.ContentCopy,
+                            null,
+                            tint = TextSlate,
+                            modifier = Modifier.size(16.dp)
+                        )
                     }
-                    Text("Main.kt", Modifier.weight(1f), textAlign = TextAlign.Center, color = TextSlate, fontSize = 12.sp, fontFamily = FontFamily.Monospace)
-                    Icon(Icons.Default.ContentCopy, null, tint = TextSlate, modifier = Modifier.size(16.dp))
+                    Row(Modifier.fillMaxSize().background(BgDark)) {
+                        // Code Editor
+                        var code by remember { mutableStateOf(InitialCode) }
+                        CodeEditor(
+                            content = code,
+                            onContentChange = { code = it },
+                            modifier = Modifier.fillMaxSize()
+                        )
+                    }
                 }
-                Box(Modifier.fillMaxSize().background(BgDark).padding(24.dp)) {
-                    Text(text = getHighlightedCode(), fontFamily = FontFamily.Monospace, fontSize = 14.sp, lineHeight = 24.sp)
+                // Floating Action Button
+                Button(
+                    onClick = {},
+                    modifier = Modifier.align(Alignment.BottomEnd).padding(24.dp).height(52.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = BrandCyan),
+                    shape = RoundedCornerShape(10.dp),
+                    elevation = ButtonDefaults.buttonElevation(8.dp)
+                ) {
+                    Icon(Icons.Default.PlayCircleFilled, null, tint = BgDark)
+                    Spacer(Modifier.width(10.dp))
+                    Text("Run Preview", color = BgDark, fontWeight = FontWeight.ExtraBold)
                 }
             }
 
             // PREVIEW (Right)
             Column(Modifier.weight(0.35f).border(width = 1.dp, Color.White.copy(0.1f))) {
-                Row(Modifier.fillMaxWidth().height(44.dp).background(Color.White.copy(0.02f)).padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
-                    Text("PREVIEW", color = TextSlate, fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                Row(
+                    Modifier.fillMaxWidth().height(44.dp).background(Color.White.copy(0.02f))
+                        .padding(horizontal = 16.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        "PREVIEW",
+                        color = TextSlate,
+                        fontSize = 10.sp,
+                        fontWeight = FontWeight.Bold
+                    )
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Box(Modifier.size(6.dp).background(Color.Green, CircleShape))
                         Spacer(Modifier.width(6.dp))
@@ -199,35 +276,49 @@ fun IdeContainer() {
                         val space = 24.dp.toPx()
                         for (x in 0..(size.width / space).toInt()) {
                             for (y in 0..(size.height / space).toInt()) {
-                                drawCircle(BrandCyan.copy(0.06f), 1.5f, Offset(x * space, y * space))
+                                drawCircle(
+                                    BrandCyan.copy(0.06f),
+                                    1.5f,
+                                    Offset(x * space, y * space)
+                                )
                             }
                         }
                     }
-                    Button(onClick = {}, colors = ButtonDefaults.buttonColors(containerColor = CardSurface), shape = RoundedCornerShape(6.dp), border = BorderStroke(1.dp, Color.White.copy(0.15f))) {
+                    Button(
+                        onClick = {},
+                        colors = ButtonDefaults.buttonColors(containerColor = CardSurface),
+                        shape = RoundedCornerShape(6.dp),
+                        border = BorderStroke(1.dp, Color.White.copy(0.15f))
+                    ) {
                         Text("Hello Compose! Clicks: 0", color = Color.White)
                     }
                 }
                 // Console Output
-                Column(Modifier.fillMaxWidth().height(140.dp).background(EditorHeaderBg).padding(16.dp)) {
+                Column(
+                    Modifier.fillMaxWidth().height(140.dp).background(EditorHeaderBg).padding(16.dp)
+                ) {
                     Text("CONSOLE OUTPUT", color = TextSlate, fontSize = 10.sp)
                     Spacer(Modifier.height(8.dp))
-                    Text("> Compilation started...", color = Color.Gray, fontSize = 12.sp, fontFamily = FontFamily.Monospace)
-                    Text("> Compilation successful (420ms)", color = Color.Green, fontSize = 12.sp, fontFamily = FontFamily.Monospace)
-                    Text("> App mounted to #root", color = BrandCyan, fontSize = 12.sp, fontFamily = FontFamily.Monospace)
+                    Text(
+                        "> Compilation started...",
+                        color = Color.Gray,
+                        fontSize = 12.sp,
+                        fontFamily = FontFamily.Monospace
+                    )
+                    Text(
+                        "> Compilation successful (420ms)",
+                        color = Color.Green,
+                        fontSize = 12.sp,
+                        fontFamily = FontFamily.Monospace
+                    )
+                    Text(
+                        "> App mounted to #root",
+                        color = BrandCyan,
+                        fontSize = 12.sp,
+                        fontFamily = FontFamily.Monospace
+                    )
                 }
             }
-        }
-        // Floating Action Button
-        Button(
-            onClick = {},
-            modifier = Modifier.align(Alignment.BottomEnd).padding(24.dp).height(52.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = BrandCyan),
-            shape = RoundedCornerShape(10.dp),
-            elevation = ButtonDefaults.buttonElevation(8.dp)
-        ) {
-            Icon(Icons.Default.PlayCircleFilled, null, tint = BgDark)
-            Spacer(Modifier.width(10.dp))
-            Text("Run Preview", color = BgDark, fontWeight = FontWeight.ExtraBold)
         }
     }
 }
@@ -241,7 +332,10 @@ fun RowScope.FeatureCard(icon: ImageVector, title: String, desc: String) {
             .border(1.dp, Color.White.copy(0.05f), RoundedCornerShape(16.dp))
             .padding(32.dp)
     ) {
-        Box(Modifier.size(48.dp).background(BrandCyan.copy(0.1f), RoundedCornerShape(12.dp)), contentAlignment = Alignment.Center) {
+        Box(
+            Modifier.size(48.dp).background(BrandCyan.copy(0.1f), RoundedCornerShape(12.dp)),
+            contentAlignment = Alignment.Center
+        ) {
             Icon(icon, null, tint = BrandCyan)
         }
         Spacer(Modifier.height(24.dp))
@@ -253,11 +347,18 @@ fun RowScope.FeatureCard(icon: ImageVector, title: String, desc: String) {
 
 @Composable
 fun FooterSection() {
-    Column(Modifier.padding(horizontal = 40.dp, vertical = 40.dp).fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(
+        Modifier.padding(horizontal = 40.dp, vertical = 40.dp).fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Divider(color = Color.White.copy(0.05f))
         Spacer(Modifier.height(32.dp))
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-            Text("© 2023 Compose Playground. Built for the Kotlin community.", color = Color.Gray, fontSize = 13.sp)
+            Text(
+                "© 2023 Compose Playground. Built for the Kotlin community.",
+                color = Color.Gray,
+                fontSize = 13.sp
+            )
             Row(horizontalArrangement = Arrangement.spacedBy(24.dp)) {
                 Text("Privacy", color = Color.Gray, fontSize = 13.sp)
                 Text("Terms", color = Color.Gray, fontSize = 13.sp)
@@ -284,3 +385,15 @@ fun getHighlightedCode(): AnnotatedString = buildAnnotatedString {
     withStyle(string) { append("\"Clicks: \$count\"") }
     append(")\n  }\n}")
 }
+
+const val InitialCode = """import androidx.compose.runtime.*
+
+@Composable
+fun App() {
+    var count by remember { mutableStateOf(0) }
+
+    Button(onClick = { count++ }) {
+        Text("Clicks: ${'$'}count")
+    }
+}
+"""
