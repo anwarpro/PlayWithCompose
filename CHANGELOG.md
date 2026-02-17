@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.5](https://github.com/anwarpro/PlayWithCompose/compare/v1.0.4...v1.0.5) (2026-02-17)
+
+
+### Bug Fixes
+
+* add CNAME for custom subdomain ([890c661](https://github.com/anwarpro/PlayWithCompose/commit/890c661de7b7d3b017c8d50f69b23ac00cfc8729))
+
 ## [1.0.4](https://github.com/anwarpro/PlayWithCompose/compare/v1.0.3...v1.0.4) (2026-02-17)
 
 
